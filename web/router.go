@@ -27,30 +27,36 @@ func (r *Router) Handle(method, pattern string, handlers ...Handler) {
 }
 
 func (r *Router) HandleFunc(method, pattern string, handlers ...HandleFunc) {
-	r.mux.HandleFunc(r.join(pattern), func(w http.ResponseWriter, r *http.Request) {
+	r.mux.HandleFunc(r.join(pattern), func (w http.ResponseWriter, r *http.Request) {
 		handleFunc(method, w, r, handlers)
 	})
 }
 
 func (r *Router) GET(pattern string, handlers ...Handler) {
-	r.mux.HandleFunc(r.join(pattern), func(w http.ResponseWriter, r *http.Request) {
+	r.mux.HandleFunc(r.join(pattern), func (w http.ResponseWriter, r *http.Request) {
 		handler("GET", w, r, handlers)
 	})
 }
 
 func (r *Router) POST(pattern string, handlers ...Handler) {
-	r.mux.HandleFunc(r.join(pattern), func(w http.ResponseWriter, r *http.Request) {
+	r.mux.HandleFunc(r.join(pattern), func (w http.ResponseWriter, r *http.Request) {
 		handler("POST", w, r, handlers)
 	})
 }
 
-func (r *Router) GetFunc(pattern string, handlers ...HandleFunc) {
+func (r *Router) PUT(pattern string, handlers ...Handler) {
+	r.mux.HandleFunc(r.join(pattern), func (w http.ResponseWriter, r *http.Request) {
+		handler("PUT", w, r, handlers)
+	})
+}
+
+func (r *Router) GETServiceMethod(pattern string, handlers ...HandleFunc) {
 	r.mux.HandleFunc(r.join(pattern), func(w http.ResponseWriter, r *http.Request) {
 		handleFunc("GET", w, r, handlers)
 	})
 }
 
-func (r *Router) PostFunc(pattern string, handlers ...HandleFunc) {
+func (r *Router) POSTServiceMethod(pattern string, handlers ...HandleFunc) {
 	r.mux.HandleFunc(r.join(pattern), func(w http.ResponseWriter, r *http.Request) {
 		handleFunc("POST", w, r, handlers)
 	})
