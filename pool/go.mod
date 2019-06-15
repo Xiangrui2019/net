@@ -1,4 +1,4 @@
-module net/pool
+module github.com/xiangrui2019/net/pool
 
 go 1.12
 
