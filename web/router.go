@@ -50,6 +50,12 @@ func (r *Router) PUT(pattern string, handlers ...Handler) {
 	})
 }
 
+func (r *Router) DELETE(pattern string, handlers ...Handler) {
+	r.mux.HandleFunc(r.join(pattern), func (w http.ResponseWriter, r *http.Request) {
+		handler("DELETE", w, r, handlers)
+	})
+}
+
 func (r *Router) GETServiceMethod(pattern string, handlers ...HandleFunc) {
 	r.mux.HandleFunc(r.join(pattern), func(w http.ResponseWriter, r *http.Request) {
 		handleFunc("GET", w, r, handlers)
