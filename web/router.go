@@ -74,6 +74,12 @@ func (r *Router) PUTServiceMethod(pattern string, handlers ...HandleFunc) {
 	})
 }
 
+func (r *Router) DELETEServiceMethod(pattern string, handlers ...HandleFunc) {
+	r.mux.HandleFunc(r.join(pattern), func (w http.ResponseWriter, r *http.Request) {
+		handleFunc("DELETE", w, r, handlers)
+	})
+}
+
 func handler(method string, w http.ResponseWriter, r *http.Request, handlers []Handler) {
 	if r.Method != method {
 		http.Error(w, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
